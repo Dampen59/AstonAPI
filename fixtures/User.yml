@@ -1,0 +1,18 @@
+entity: User
+items:
+  user1:
+    email: 'admin@dampen59.io'
+    firstName: 'Dampen'
+    lastName: 'Coder'
+    password: '12345'
+    birthdate: '2020-01-07T13:30:37.349Z'
+    roles:
+      - "@role4"
+  user2:
+    email: 'admin@dampedsdn59.io'
+    firstName: 'Dampener'
+    lastName: 'Codreer'
+    password: '12er345'
+    birthdate: '2020-01-07T13:30:37.349Z'
+    roles:
+      - "@role1"
