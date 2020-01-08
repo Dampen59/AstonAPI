@@ -15,7 +15,7 @@ export class Permission {
     @Column()
     description: string;
 
-    @ManyToMany(type => Role, role => role.permissions, { eager: true })
+    @ManyToMany(type => Role, role => role.permissions)
     roles: Role[];
 
 }

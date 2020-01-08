@@ -2,6 +2,10 @@ entity: Role
 items:
   role1:
     name: "Administrator"
+    permissions:
+      - "@permission1"
+      - "@permission2"
+      - "@permission3"
   role2:
     name: "Manager"
   role3:
