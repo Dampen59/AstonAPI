@@ -5,6 +5,7 @@ import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
 import { Routes } from "./routes";
 import * as cors from "cors";
+import * as httpContext from 'express-http-context';
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || "localhost";
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json());
+app.use(httpContext.middleware);
 
 Routes.forEach(route => {
     const middlewares = route.middlewares || [];

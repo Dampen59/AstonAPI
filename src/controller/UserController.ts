@@ -5,11 +5,12 @@ import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/User";
 import { Role } from '../entity/Role';
+import { JWT_SIGN_KEY } from '../../middleware/jwt-check';
+import * as httpContext from "express-http-context";
 
 export class UserController {
 
     private userRepository = getRepository(User);
-    private readonly JWT_SIGN_KEY = "gVkYp3s6v9y/B?E(H+MbQeThWmZq4t7w!z%C&F)J@NcRfUjXn2r5u8x/A?D(G-Ka";
 
     async register(request: Request, response: Response) {
         const body = request.body as User;
@@ -76,12 +77,20 @@ export class UserController {
 
         const options: SignOptions = { algorithm: 'HS256', expiresIn: 300 };
         const payload = { id: user.id, firstName: user.firstName, lastName: user.lastName };
-        const token: string = sign(payload, this.JWT_SIGN_KEY, options);
+        const token: string = sign(payload, JWT_SIGN_KEY, options);
 
         return { token_access: token };
     }
 
     async all(request: Request, response: Response, next: NextFunction) {
+
+        const user: User = httpContext.get('user');
+
+        if (!user.hasPrivilege("viewAccount")) {
+            response.status(403);
+            return { error: 'Forbidden', code: 403 };
+        }
+
         return this.userRepository.find();
     }
 
