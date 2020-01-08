@@ -22,7 +22,7 @@ export class User {
     @Column({ type: 'datetime' })
     birthdate: Date;
 
-    @ManyToMany(type => Role, role => role.users)
+    @ManyToMany(type => Role, role => role.users, { eager: true })
     @JoinTable({ name: "user_has_role" })
     roles: Role[];
 
