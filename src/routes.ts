@@ -1,6 +1,7 @@
 import { UserController } from "./controller/UserController";
 import { DefaultController } from "./controller/DefaultController";
 import { User } from "./entity/User";
+import { jwtCheck } from "../middleware/jwt-check";
 
 export const Routes = [
 
@@ -29,7 +30,8 @@ export const Routes = [
         method: "get",
         route: "/users",
         controller: UserController,
-        action: "all"
+        action: "all",
+        middlewares: jwtCheck
     },
 
     {
