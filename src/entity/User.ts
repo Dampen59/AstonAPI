@@ -26,6 +26,18 @@ export class User {
     @JoinTable({ name: "user_has_role" })
     roles: Role[];
 
+    hasRole(name: string) {
+        return this.roles.some((role: Role) => {
+            return role.name === name;
+        });
+    }
+
+    hasPrivilege(operation: string) {
+        return this.roles.some((role: Role) => {
+            return role.hasPermission(operation);
+        });
+    }
+
     @CreateDateColumn()
     createdAt: Date;
 
